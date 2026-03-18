@@ -1,27 +1,48 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Pagination from '../../components/Pagination';
 import { Link, useNavigate } from "react-router";
+
 
 const apiBase = import.meta.env.VITE_API_BASE;
 const apiPath = import.meta.env.VITE_API_PATH;
 
 function Products() {
 
+    const BPtoken = document.cookie
+        .replace(/(?:(?:^|.*;\s*)BPToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
+
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState({});
 
-    const customerProduct = async () => {
+    const goPage = async (pageLocation) => {
+
         try {
-            const res = await axios.get(`${apiBase}v2/api/${apiPath}/products`);
-            console.log(res.data);
+            const res = await axios.get(`${apiBase}v2/api/${apiPath}/admin/products?page=${pageLocation}`, {
+                headers: {
+                    Authorization: BPtoken
+                }
+            });
+            console.log("前往頁面:", res);
             setProducts(res.data.products);
             setPagination(res.data.pagination);
         } catch (error) {
-            console.log(error);
+            console.error("前往頁面時發生錯誤:", error);
         }
+
     };
 
     useEffect(() => {
+        const customerProduct = async () => {
+            try {
+                const res = await axios.get(`${apiBase}v2/api/${apiPath}/products`);
+                console.log(res.data);
+                setProducts(res.data.products);
+                setPagination(res.data.pagination);
+            } catch (error) {
+                console.log(error);
+            }
+        };
         customerProduct();
     }
         , [])
@@ -52,6 +73,7 @@ function Products() {
                         })
                     }
                 </div>
+                <Pagination pagination={pagination} goPage={goPage} />
             </div>
 
 

@@ -11,8 +11,7 @@ const apiPath = import.meta.env.VITE_API_PATH;
 
 function ProductsBack() {
     const BPtoken = document.cookie
-        .replace(/(?:(?:^|.*;\s*)BPToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
+        .replace(/(?:(?:^|.*;\s*)BPToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
 
     const [SelectProduct, setSelectProduct] = useState(null);
     const [pagination, setPagination] = useState();
