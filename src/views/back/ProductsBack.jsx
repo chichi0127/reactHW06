@@ -108,9 +108,21 @@ function ProductsBack() {
 
     };
 
-    const uploadImg = async () => {
+    const uploadImg = async (e) => {
+        const file = e.target.files?.[0]
+        if (!file) {
+            return
+        }
+
         try {
-            const res = await axios.post(`${apiBase}v2/admin/${apiPath}/admin/upload`);
+            const formData = new FormData()
+            formData.append('file-to-upload', file)
+
+            const res = await axios.post(`${apiBase}v2/api/${apiPath}/admin/upload`, formData);
+            setAddProduct((pre) => ({
+                ...pre,
+                imageUrl: res.data.imageUrl,
+            }));
             console.log(res);
         } catch (error) {
             console.log(error.message);

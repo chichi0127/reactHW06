@@ -17,9 +17,9 @@ function Addproduct({ setShowAddModal, addProduct, handleProduct, sentProduct, a
                                 <div className="col-5">
                                     <div className='mb-3'>
                                         <label htmlFor="fileUpload">
-                                            <input className='form-control' type="file" name='fileUpload' id='fileUpload' accept='.jpg, .jpeg, .png' />
+                                            <input className='form-control' type="file" name='fileUpload' id='fileUpload' accept='.jpg, .jpeg, .png' onChange={uploadImg} />
                                         </label>
-                                        {/* 0323改到這邊加完樣式+API寫好，還沒把api跟樣式串再一起，第四堂主線任務30:52繼續看*/}
+                                        {/* 0324進度，完成上傳圖片，明日元件化 */}
                                     </div>
 
                                     <ImgInputAdd addProduct={addProduct} handleProduct={handleProduct} addImg={addImg} deleteImg={deleteImg} handleImgUrl={handleImgUrl} />
