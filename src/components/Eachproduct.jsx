@@ -12,6 +12,8 @@ function Eachproduct({ revisedProduct, deleteProduct, product, onClose }) {
         unit: product.unit,
         description: product.description,
         content: product.content,
+        card_person: product.card_person,
+        publish_date: product.publish_date,
         is_enabled: product.is_enabled,
         imageUrl: product.imageUrl,
         imagesUrl: product.imagesUrl,
@@ -87,8 +89,11 @@ function Eachproduct({ revisedProduct, deleteProduct, product, onClose }) {
                             <h5 className="card-title my-2 fw-semibold">產品名稱：{product.title}</h5>
                             <h5 className="card-title my-2 fw-semibold">分類：{product.category}</h5>
                             <p className="card-text">{product.content}</p>
+                            <p className="card-text">發行日期：<span>{product.publish_date}</span></p>
                             <p className="card-text">原價：<span className='text-decoration-line-through'>{product.origin_price}</span></p>
                             <p className="card-text fs-5">售價：<span className='text-danger fw-semibold'>{product.price}</span></p>
+                            <p className="card-text fs-5">小卡人物：<span className='text-primary fw-semibold'>{product.card_person}</span></p>
+
                         </div>
 
                     </div>
@@ -130,6 +135,7 @@ function Eachproduct({ revisedProduct, deleteProduct, product, onClose }) {
                                                     <input id='origin_price' value={revisedModal.origin_price} name='origin_price' onChange={handleRevisedProduct} className="form-control" type="number" placeholder="請輸入原價"  ></input>
                                                     <label htmlFor="price" className="form-label pt-2">售價</label>
                                                     <input id='price' name='price' value={revisedModal.price} onChange={handleRevisedProduct} className="form-control" type="number" placeholder="請輸入售價"  ></input>
+
                                                 </div>
 
                                             </div>
@@ -137,6 +143,16 @@ function Eachproduct({ revisedProduct, deleteProduct, product, onClose }) {
                                             <input id='description' value={revisedModal.description} name='description' onChange={handleRevisedProduct} className="form-control" type="text" placeholder="請輸入產品描述"  ></input>
                                             <label htmlFor="content" className="form-label pt-2">說明內容</label>
                                             <input id='content' value={revisedModal.content} name='content' onChange={handleRevisedProduct} className="form-control" type="text" placeholder="請輸入說明內容"  ></input>
+                                            <label htmlFor="card_person" className="form-label pt-2">小卡人物</label>
+                                            <select className="form-select" value={revisedModal.card_person} name='card_person' onChange={handleRevisedProduct} id='card_person' aria-label="Default select example">
+                                                <option value="">請選擇小卡人物</option>
+                                                <option value="Jisoo">Jisoo</option>
+                                                <option value="Jennie">Jennie</option>
+                                                <option value="Rose">Rose</option>
+                                                <option value="Lisa">Lisa</option>
+                                            </select>
+                                            <label htmlFor="publish_date" className="form-label pt-2">發行日期</label>
+                                            <input id='publish_date' value={revisedModal.publish_date} name='publish_date' onChange={handleRevisedProduct} className="form-control" type="date" placeholder="請輸入發行日期"  ></input>
                                             <div className="form-check pt-4">
                                                 <input name='is_enabled' checked={revisedModal.is_enabled} onChange={handleRevisedProduct} className="form-check-input" type="checkbox" id="checkEnable" />
                                                 <label className="form-check-label" htmlFor="checkEnable">
@@ -152,7 +168,7 @@ function Eachproduct({ revisedProduct, deleteProduct, product, onClose }) {
                             <div className="modal-footer bg-color">
 
                                 <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={() => { setShowRevisedModal(false) }}>取消</button>
-                                <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={(e) => revisedProduct(product.id, revisedModal)} >確認修改</button>
+                                <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => revisedProduct(product.id, revisedModal)} >確認修改</button>
                             </div>
                         </div>
                     </div>

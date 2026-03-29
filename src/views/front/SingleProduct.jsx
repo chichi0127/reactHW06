@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Button } from "bootstrap";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +11,26 @@ const apiPath = import.meta.env.VITE_API_PATH;
 function SingleProduct() {
     const { id } = useParams();//要跟在router.jsx檔的path定義的名字一樣
     const [product, setProduct] = useState(null);
+    const dataCart = {
+        "product_id": id,
+        "qty": 1
+    };
     const navigator = useNavigate();
 
     const handleBack = () => {
         return navigator(-1);
     };
+
+    const addCart = async () => {
+        try {
+            const res = await axios.post(`${apiBase}v2/api/${apiPath}/cart`, { data: dataCart });
+            console.log(res);
+            navigator("/cart");
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     useEffect(() => {
         const getProduct = async () => {
@@ -52,12 +66,14 @@ function SingleProduct() {
                         <p className="card-text">{product.content}</p>
                     </div>
                     <ul className="list-group list-group-flush">
+                        <li className="list-group-item"><p className="card-text">人物小卡：<span className='fw-semibold'>{product.card_person}</span></p></li>
                         <li className="list-group-item">
                             <p className="card-text">原價：<span className='text-decoration-line-through'>{product.origin_price}</span></p></li>
                         <li className="list-group-item"><p className="card-text fs-5">售價：<span className='text-danger fw-semibold'>{product.price}</span></p></li>
                         <li className="list-group-item"><p className="card-text">剩餘數量：<span className='text-warning'>{product.unit}</span></p></li>
                     </ul>
                     <div class="card-body">
+                        <button onClick={addCart} className="btn btn-primary mx-2">加入購物車</button>
                         <Link to="/" className="btn btn-primary mx-2">回首頁</Link>
                         <button onClick={handleBack} className="btn btn-primary mx-2">回上一頁</button>
                     </div>

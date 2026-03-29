@@ -66,7 +66,7 @@ function Products() {
                                         <Link to={`/product/${product.id}`} className="btn btn-primary">詳細資訊</Link>
                                     </div>
                                     <div className="card-footer text-body-secondary">
-                                        2 days 發行
+                                        {product.publish_date}發行
                                     </div>
                                 </div>
                             )

@@ -19,7 +19,7 @@ function Addproduct({ setShowAddModal, addProduct, handleProduct, sentProduct, a
                                         <label htmlFor="fileUpload">
                                             <input className='form-control' type="file" name='fileUpload' id='fileUpload' accept='.jpg, .jpeg, .png' onChange={uploadImg} />
                                         </label>
-                                        {/* 0324進度，完成上傳圖片，明日元件化 */}
+
                                     </div>
 
                                     <ImgInputAdd addProduct={addProduct} handleProduct={handleProduct} addImg={addImg} deleteImg={deleteImg} handleImgUrl={handleImgUrl} />
@@ -45,6 +45,16 @@ function Addproduct({ setShowAddModal, addProduct, handleProduct, sentProduct, a
                                         </div>
 
                                     </div>
+                                    <label htmlFor="publish_date" className="form-label pt-2">發行日期</label>
+                                    <input id='publish_date' value={addProduct.publish_date} name='publish_date' onChange={handleProduct} className="form-control" type="date" placeholder="請輸入發行日期"  ></input>
+                                    <label htmlFor="card_person" className="form-label pt-2">小卡人物</label>
+                                    <select className="form-select" value={addProduct.card_person} name='card_person' onChange={handleProduct} id='card_person' aria-label="Default select example">
+                                        <option selected>請選擇小卡人物</option>
+                                        <option value="Jisoo">Jisoo</option>
+                                        <option value="Jennie">Jennie</option>
+                                        <option value="Rose">Rose</option>
+                                        <option value="Lisa">Lisa</option>
+                                    </select>
                                     <label htmlFor="description" className="form-label pt-2">產品描述</label>
                                     <input id='description' value={addProduct.description} name='description' onChange={handleProduct} className="form-control" type="text" placeholder="請輸入產品描述"  ></input>
                                     <label htmlFor="content" className="form-label pt-2">說明內容</label>

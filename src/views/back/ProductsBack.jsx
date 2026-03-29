@@ -25,6 +25,8 @@ function ProductsBack() {
         unit: '',
         description: '',
         content: '',
+        card_person: '',
+        publish_date: '',
         is_enabled: 0,
         imageUrl: '',
         imagesUrl: [],
@@ -182,8 +184,6 @@ function ProductsBack() {
     }
         , []);
 
-
-
     return (
         <>
             <div className='bg-color pb-5'>
@@ -201,6 +201,8 @@ function ProductsBack() {
                                 unit: '',
                                 description: '',
                                 content: '',
+                                card_person: '',
+                                publish_date: '',
                                 is_enabled: 0,
                                 imageUrl: '',
                                 imagesUrl: [],
