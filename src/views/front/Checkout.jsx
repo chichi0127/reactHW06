@@ -12,6 +12,15 @@ function Checkout() {
     const BPtoken = document.cookie
         .replace(/(?:(?:^|.*;\s*)BPToken\s*=\s*([^;]*).*$)|^.*$/, "$1");
 
+    const orderData = {
+        "user": {
+            "name": "test",
+            "email": "test@gmail.com",
+            "tel": "0912346768",
+            "address": "kaohsiung"
+        },
+        "message": "這是留言"
+    }
 
     const [cartList, setCartList] = useState();
     const {
@@ -19,13 +28,27 @@ function Checkout() {
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm({ mode: "onBlur" });
+    } = useForm({ mode: "onChange" });
 
-    const onSubmit = (data) => {
+    // 0330進度，串API
+    const onSubmit = async (data) => {
         console.log("表單資料:", data);
         // 處理表單提交
+        try {
+            const res = await axios.post(`${apiBase}v2/api/${apiPath}/order`, {
+                data: {
+                    orderData
+                }
+            });
+            console.log("數據", res.data.data.carts);
+            setCartList(res.data.data.carts)
+        } catch (error) {
+            console.error(error);
+        }
         reset(); // 重置表單
     };
+
+
 
 
     const getCart = async () => {
@@ -109,23 +132,45 @@ function Checkout() {
                     <div className="w-50 mx-auto">
                         <div className='maininput mt-3 mb-3'>
                             <label htmlFor="name" className='form-label text-light fs-5'>客戶姓名</label>
-                            <input type="text" name='name' id='name' className='form-control' placeholder="請輸入姓名" />
+                            <input type="text" name='name' id='name' className='form-control' placeholder="請輸入姓名" {...register("name", { required: "姓名為必填項目", minLength: { value: 2, message: "姓名最少2個字" }, })} />
+                            {errors.name && (
+                                <p className="text-danger py-2 mb-0">{errors.name.message}</p>)
+                            }
                             <label htmlFor="mail" className='form-label text-light fs-5 mt-3'>電子信箱</label>
-                            <input type="email" name='email' id='mail' className='form-control' placeholder='請輸入信箱' />
-                            <label htmlFor="tel" className='form-label text-light fs-5 mt-3'>電話號碼</label>
-                            <input type="tel" name='tel' id='tel' className='form-control' placeholder='請輸入電話號碼' />
+                            <input type="email" name='email' id='mail' className='form-control' placeholder='請輸入信箱' {...register("email", {
+                                required: "信箱為必填項目", pattern: {
+                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                    message: "請輸入有效的 Email 格式",
+                                },
+                            })} />
+                            {errors.email && (
+                                <p className="text-danger py-2 mb-0">{errors.email.message}</p>
+                            )}
+                            <label htmlFor="tel" className='form-label text-light fs-5 mt-3'>手機號碼</label>
+                            <input type="tel" name='tel' id='tel' className='form-control' placeholder='請輸入手機號碼' {...register("tel", {
+                                required: "號碼為必填項目", pattern: {
+                                    value: /^[0-9]{10}$/,
+                                    message: '手機號碼格式錯誤',
+                                },
+                            })} />
+                            {errors.tel && (
+                                <p className="text-danger py-2 mb-0">{errors.tel.message}</p>
+                            )}
                             <label htmlFor="address" className='form-label text-light fs-5 mt-3'>收件地址</label>
-                            <input type="text" name='address' id='address' className='form-control' placeholder='請輸入地址' />
+                            <input type="text" name='address' id='address' className='form-control' placeholder='請輸入地址' {...register("address", { required: "地址為必填項目", })} />
+                            {errors.address && (
+                                <p className="text-danger py-2 mb-0">{errors.address.message}</p>
+                            )}
                             <label htmlFor="message" className='form-label text-light fs-5 mt-3'>留言</label>
                             <textarea id='message' className='form-control' cols="30"
-                                rows="10" placeholder='有什麼想告訴賣家嗎?' />
+                                rows="10" placeholder='有什麼想告訴賣家嗎?' {...register("message")} />
                         </div>
                     </div>
-                    {/* 0329進度，明天寫表單內容 */}
-                </form>;
-                <div className="d-flex justify-content-center py-5">
-                    <button className="btn fw-bold btn-primary" type="button" >送出訂單</button>
-                </div>
+                    <div className="d-flex justify-content-center py-5">
+                        <button className="btn fw-bold btn-primary" type="submit" >送出訂單</button>
+                    </div>
+                </form>
+
 
 
             </div >
