@@ -28,7 +28,7 @@ function Cart() {
             console.error(error);
         }
     };
-    // 把這三個功能做完
+
     const addOne = async (id) => {
         const dataCart = {
             "product_id": id,

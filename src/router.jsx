@@ -8,8 +8,8 @@ import NotFound from "./views/front/NotFound"
 import BackendLayout from "./layout/BackendLayout";
 import HomeBack from "./views/back/HomeBack";
 import ProductsBack from "./views/back/ProductsBack"
-import Login from "./views/front/Login";
 import Checkout from "./views/front/Checkout";
+import Login from "./views/front/Login";
 
 
 
@@ -36,13 +36,13 @@ export const router = createHashRouter([
                 element: <Cart />,
             },
             {
+                path: 'checkout',
+                element: <Checkout />,
+            },
+            {
                 path: 'login',
                 element: <Login />,
             },
-            {
-                path: 'checkout',
-                element: <Checkout />,
-            }
         ],
     },
     {

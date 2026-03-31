@@ -25,7 +25,7 @@ function SingleProduct() {
         try {
             const res = await axios.post(`${apiBase}v2/api/${apiPath}/cart`, { data: dataCart });
             console.log(res);
-            navigator("/cart");
+            navigator("/product");
         } catch (error) {
             console.log(error);
         }

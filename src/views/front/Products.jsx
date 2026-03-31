@@ -14,6 +14,7 @@ function Products() {
 
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState({});
+    
 
     const goPage = async (pageLocation) => {
 
